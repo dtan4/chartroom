@@ -1,1 +1,20 @@
 h1 ChartRoom
+
+h3 Running Containers
+
+table border="1"
+  thead
+    tr
+      th ID
+      th Name
+      th Image
+      th Command
+      th Status
+  tbody
+    - Docker::Container.all.each do |container|
+      tr
+        td = container.info["id"][0..7]
+        td = container.info["Names"].join(", ")
+        td = container.info["Image"]
+        td = container.info["Command"]
+        td = container.info["Status"]
