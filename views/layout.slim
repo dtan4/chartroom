@@ -4,5 +4,8 @@ html
   head
     meta charset="utf-8"
     title ChartRoom
+    link href="#{stylesheet_path 'all'}" rel="stylesheet"
   body
-    == yield
+    .container
+      == yield
+    script src="#{javascript_path 'all'}"

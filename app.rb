@@ -1,4 +1,6 @@
 class App < Sinatra::Base
+  set :assets, Sprockets::Environment.new(root)
+
   configure do
     # https://github.com/swipely/docker-api/issues/202
     cert_path = File.expand_path ENV['DOCKER_CERT_PATH']
@@ -9,11 +11,28 @@ class App < Sinatra::Base
       ssl_ca_file: File.join(cert_path, "ca.pem"),
       scheme: "https"
     }
+
+    RailsAssets.load_paths.each do |path|
+      assets.append_path(path)
+    end
+
+    assets.append_path File.join(root, "assets", "stylesheets")
+    assets.append_path File.join(root, "assets", "javascripts")
+
+    Sprockets::Helpers.configure do |config|
+      config.environment = assets
+      config.prefix = "/assets"
+      config.digest = true
+    end
   end
 
   configure :development do
     require "sinatra/reloader"
     register Sinatra::Reloader
+  end
+
+  helpers do
+    include Sprockets::Helpers
   end
 
   get "/" do
