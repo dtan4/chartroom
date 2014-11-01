@@ -11,6 +11,11 @@ class App < Sinatra::Base
     }
   end
 
+  configure :development do
+    require "sinatra/reloader"
+    register Sinatra::Reloader
+  end
+
   get "/" do
     slim :index
   end
