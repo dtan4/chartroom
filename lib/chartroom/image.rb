@@ -1,5 +1,15 @@
 module Chartroom
   class Image
+    def self.generate_tree_diagram(images)
+      images_description = images.map { |image| image.diagram_description }.join("\n")
+
+      <<-DIAGRAM
+digraph images {
+#{images_description}
+}
+      DIAGRAM
+    end
+
     def initialize(image)
       @image = image
     end
@@ -30,6 +40,23 @@ module Chartroom
 
     def row_class
       tagged? ? "success" : ""
+    end
+
+    def diagram_description
+      <<-DESC
+#{node_description}
+#{link_description}
+      DESC
+    end
+
+    private
+
+    def node_description
+      "#{id}[label=\"#{tagged? ? repo_tags.join("\n") : id}\"]"
+    end
+
+    def link_description
+      parent_id == "" ? "" : "#{id} -> #{parent_id}"
     end
   end
 end
