@@ -1,10 +1,13 @@
 require "bundler"
 Bundler.require
 
-require "./app.rb"
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require "chartroom"
 
 map "/assets" do
-  run App.assets
+  run Chartroom::App.assets
 end
 
-run App
+run Chartroom::App
