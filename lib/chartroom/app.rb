@@ -35,10 +35,6 @@ module Chartroom
 
     helpers do
       include Sprockets::Helpers
-
-      def millisec_to_datetime(datetime_str)
-        Time.parse(datetime_str)
-      end
     end
 
     get "/" do
@@ -46,6 +42,8 @@ module Chartroom
     end
 
     get "/images" do
+      @images = Docker::Image.all.map { |image| Chartroom::Image.new(image.info) }
+
       slim :images
     end
 
