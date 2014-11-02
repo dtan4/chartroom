@@ -48,6 +48,8 @@ module Chartroom
     end
 
     get "/containers" do
+      @containers = Docker::Container.all.map { |container| Chartroom::Container.new(container) }
+
       slim :containers
     end
   end
