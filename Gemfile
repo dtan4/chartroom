@@ -16,6 +16,7 @@ gem "sprockets-helpers"
 gem "rails-assets-jquery"
 gem "rails-assets-bootstrap"
 gem "rails-assets-bootstrap-css"
+gem "rails-assets-vis"
 
 gem "docker-api", require: "docker"
 
