@@ -1,19 +1,31 @@
 module Chartroom
   class Image
-    %i(id repo_tags virtual_size created_at parent_id).each do |attr|
-      attr_reader attr
+    def initialize(image)
+      @image = image
     end
 
-    def initialize(image_info)
-      @id = image_info["id"]
-      @repo_tags = image_info["RepoTags"]
-      @virtual_size = image_info["VirtualSize"]
-      @created_at = image_info["Created"]
-      @parent_id = image_info["ParentId"]
+    def id
+      @id ||= @image.info["id"]
+    end
+
+    def repo_tags
+      @repo_tags ||= @image.info["RepoTags"]
+    end
+
+    def virtual_size
+      @virtual_size ||= @image.info["VirtualSize"]
+    end
+
+    def created_at
+      @created_at ||= @image.info["Created"]
+    end
+
+    def parent_id
+      @parent_id ||= @image.info["ParentId"]
     end
 
     def tagged?
-      (@repo_tags.size > 1) || (@repo_tags.first != "<none>:<none>")
+      (repo_tags.size > 1) || (repo_tags.first != "<none>:<none>")
     end
 
     def row_class
