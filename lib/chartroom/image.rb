@@ -5,6 +5,9 @@ module Chartroom
 
       <<-DIAGRAM
 digraph images {
+rankdir=BT;
+node[style=filled];
+
 #{images_description}
 }
       DIAGRAM
@@ -52,11 +55,15 @@ digraph images {
     private
 
     def node_description
-      "image_#{id}[label=\"#{node_label}\", shape=#{node_shape}];"
+      "image_#{id}[color=#{node_color}, label=\"#{node_label}\", shape=#{node_shape}];"
     end
 
     def link_description
       parent_id == "" ? "" : "image_#{id} -> image_#{parent_id};"
+    end
+
+    def node_color
+      tagged? ? "green" : "white"
     end
 
     def node_label
