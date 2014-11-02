@@ -15,7 +15,7 @@ digraph images {
     end
 
     def id
-      @id ||= @image.info["id"]
+      @id ||= @image.info["id"][0..11]
     end
 
     def repo_tags
@@ -31,7 +31,7 @@ digraph images {
     end
 
     def parent_id
-      @parent_id ||= @image.info["ParentId"]
+      @parent_id ||= @image.info["ParentId"][0..11]
     end
 
     def tagged?
@@ -52,11 +52,19 @@ digraph images {
     private
 
     def node_description
-      "image_#{id}[label=\"#{tagged? ? repo_tags.join("\n") : id}\"];"
+      "image_#{id}[label=\"#{node_label}\", shape=#{node_shape}];"
     end
 
     def link_description
       parent_id == "" ? "" : "image_#{id} -> image_#{parent_id};"
+    end
+
+    def node_label
+      tagged? ? repo_tags.join("\n") : id
+    end
+
+    def node_shape
+      tagged? ? "box" : "ellipse"
     end
   end
 end
