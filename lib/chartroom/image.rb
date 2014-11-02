@@ -52,11 +52,11 @@ digraph images {
     private
 
     def node_description
-      "#{id}[label=\"#{tagged? ? repo_tags.join("\n") : id}\"];"
+      "image_#{id}[label=\"#{tagged? ? repo_tags.join("\n") : id}\"];"
     end
 
     def link_description
-      parent_id == "" ? "" : "#{id} -> #{parent_id};"
+      parent_id == "" ? "" : "image_#{id} -> image_#{parent_id};"
     end
   end
 end
