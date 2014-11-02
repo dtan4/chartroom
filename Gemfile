@@ -20,6 +20,11 @@ gem "rails-assets-vis"
 
 gem "docker-api", require: "docker"
 
+group :development, :test do
+  gem "rspec"
+end
+
 group :development do
+  gem "guard-rspec"
   gem "sinatra-reloader", require: "sinatra/reloader"
 end
