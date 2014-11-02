@@ -1,0 +1,20 @@
+h3 Running Containers
+
+table.table.table-striped.table-bordered
+  thead
+    tr
+      th ID
+      th Name
+      th Image
+      th Command
+      th Links
+      th Status
+  tbody
+    - Docker::Container.all.each do |container|
+      tr
+        td = container.info["id"][0..7]
+        td = container.info["Names"].join(", ")
+        td = container.info["Image"]
+        td = container.info["Command"]
+        td = container.json["HostConfig"]["Links"] ? container.json["HostConfig"]["Links"].join("\n") : ""
+        td = container.info["Status"]

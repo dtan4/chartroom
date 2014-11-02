@@ -33,9 +33,21 @@ class App < Sinatra::Base
 
   helpers do
     include Sprockets::Helpers
+
+    def millisec_to_datetime(datetime_str)
+      Time.parse(datetime_str)
+    end
   end
 
   get "/" do
     slim :index
+  end
+
+  get "/images" do
+    slim :images
+  end
+
+  get "/containers" do
+    slim :containers
   end
 end

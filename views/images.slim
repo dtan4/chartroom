@@ -1,0 +1,18 @@
+h3 Images
+
+table.table.table-striped.table-bordered
+  thead
+    tr
+      th ID
+      th RepoTags
+      th Virtual Size
+      th Created at
+      th Parent ID
+  tbody
+    - Docker::Image.all.each do |image|
+      tr
+        td = image.info["id"][0..7]
+        td = image.info["RepoTags"].join(", ")
+        td = sprintf("%.1f MB", image.info["VirtualSize"].to_f / 1024 / 1024)
+        td = Time.at(image.info["Created"])
+        td = image.info["ParentId"][0..7]
