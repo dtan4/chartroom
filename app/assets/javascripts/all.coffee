@@ -1,4 +1,4 @@
 #= require jquery
 #= require bootstrap
-
-console.log "hello"
+#= require vis
+#= require_tree .

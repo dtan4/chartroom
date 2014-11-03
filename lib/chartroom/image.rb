@@ -81,7 +81,7 @@ node[style=filled];
     end
 
     def node_color
-      tagged? ? "green" : "white"
+      tagged? ? "lawngreen" : "lightgray"
     end
 
     def node_label
