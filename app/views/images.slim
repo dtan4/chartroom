@@ -13,9 +13,9 @@ table.table.table-bordered.table-striped
   tbody
     - @images.each do |image|
       tr
-        td = image.id[0..7]
+        td = image.id[0..11]
         td
           strong = image.repo_tags.join(", ")
         td = sprintf("%.1f MB", image.virtual_size.to_f / 1024 / 1024)
         td = Time.at(image.created_at).strftime("%Y-%m-%d %H:%M:%S")
-        td = image.parent_id[0..7]
+        td = image.parent_id[0..11]

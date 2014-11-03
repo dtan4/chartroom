@@ -59,7 +59,7 @@ node[style=filled];
       link_description = []
 
       links.each do |link|
-        link_description << "image_#{id}"
+        link_description << "image_#{id[0..11]}"
       end
     end
 
