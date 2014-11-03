@@ -8,9 +8,11 @@ $ ->
       width: 2
     },
     stabilize: false,
-    smoothCurves: false,
     hierarchicalLayout: {
-      enabled: true,
+      enabled:true,
+      levelSeparation: 150,
+      nodeSpacing: 1000,
+      direction: "UD"
     }
   }
 

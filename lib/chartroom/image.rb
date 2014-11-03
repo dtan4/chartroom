@@ -59,10 +59,6 @@ node[style=filled];
       (repo_tags.size > 1) || (repo_tags.first != "<none>:<none>")
     end
 
-    def row_class
-      tagged? ? "success" : ""
-    end
-
     def diagram_description
       <<-DESC
 #{node_description}

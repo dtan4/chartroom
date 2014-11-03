@@ -4,9 +4,10 @@ $ ->
 
   options = {
     edges: {
-      color: "black",
       width: 2
-    }
+    },
+    width: "500px",
+    height: "500px"
   }
 
   $.getJSON "/api/containers", {}, (data) ->

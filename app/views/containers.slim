@@ -2,7 +2,7 @@ h3 Running Containers
 
 #containersDiagramContainer
 
-table.table.table-bordered
+table.table.table-bordered.table-striped
   thead
     tr
       th ID
@@ -11,12 +11,17 @@ table.table.table-bordered
       th Command
       th Links
       th Status
+      th
   tbody
     - @containers.each do |container|
       tr
         td = container.id[0..7]
-        td = container.names.join(", ")
+        td
+          strong = container.names.join(", ")
         td = container.image
-        td = container.command
+        td
+          code = container.command
         td = container.links.join(", ")
         td = container.status
+        td
+          button.btn.btn-danger Stop

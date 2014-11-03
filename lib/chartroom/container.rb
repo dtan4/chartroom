@@ -48,7 +48,7 @@ node[style=filled];
     end
 
     def status
-      @container.json["Status"]
+      @container.info["Status"]
     end
 
     def node_description

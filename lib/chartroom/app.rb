@@ -42,7 +42,7 @@ module Chartroom
     end
 
     get "/images" do
-      @images = Docker::Image.all.map { |image| Chartroom::Image.new(image) }
+      @images = Docker::Image.all.map { |image| Chartroom::Image.new(image) }.select { |image| image.tagged? }
 
       slim :images
     end
