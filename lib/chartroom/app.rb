@@ -61,5 +61,14 @@ module Chartroom
 
       slim :containers
     end
+
+    get "/api/containers" do
+      content_type :json
+
+      containers = Docker::Container.all.map { |container| Chartroom::Container.new(container) }
+      diagram = Chartroom::Container.generate_diagram(containers)
+
+      { dot: diagram }.to_json
+    end
   end
 end

@@ -1,5 +1,5 @@
 $ ->
-  diagram_container = document.getElementById("imagesDiagramContainer")
+  diagram_container = document.getElementById("containersDiagramContainer")
   network = null
 
   options = {
@@ -9,5 +9,5 @@ $ ->
     }
   }
 
-  $.getJSON "/api/images", {}, (data) ->
+  $.getJSON "/api/containers", {}, (data) ->
     network = new vis.Network(diagram_container, data, options)
