@@ -6,8 +6,15 @@ $ ->
     edges: {
       width: 2
     },
-    width: "500px",
-    height: "500px"
+    physics: {
+      barnesHut: {
+        enabled: false
+      }
+      repulsion: {
+        nodeDistance: 100
+      }
+    },
+    height: "700px"
   }
 
   $.getJSON "/api/containers", {}, (data) ->
