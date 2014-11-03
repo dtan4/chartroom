@@ -1,14 +1,32 @@
 module Chartroom
   class Image
     def self.generate_tree_diagram(images)
-      images_description = images.map { |image| image.diagram_description }.join("\n")
+      images_description = []
+
+      images.select { |image| image.tagged? }.each do |image|
+        current_image = image
+        parent_images = ["image_#{current_image.id}"]
+
+        loop do
+          images_description << current_image.node_description
+
+          break if current_image.parent_id == ""
+          next_image = images.select { |_image| _image.id == current_image.parent_id }.first
+          parent_images << "image_#{next_image.id}"
+          break if next_image.tagged?
+
+          current_image = next_image
+        end
+
+        images_description << "#{parent_images.join(" -> ")};"
+      end
 
       <<-DIAGRAM
-digraph images {
+strict digraph images {
 rankdir=BT;
 node[style=filled];
 
-#{images_description}
+#{images_description.join("\n")}
 }
       DIAGRAM
     end
@@ -52,11 +70,11 @@ node[style=filled];
       DESC
     end
 
-    private
-
     def node_description
       "image_#{id}[color=#{node_color}, label=\"#{node_label}\", shape=#{node_shape}];"
     end
+
+    private
 
     def link_description
       parent_id == "" ? "" : "image_#{id} -> image_#{parent_id};"

@@ -10,7 +10,7 @@ module Chartroom
 
       it "should generate tree diagram in dot language" do
         expect(described_class.generate_tree_diagram(images)).to eq <<-EXPECT
-digraph images {
+strict digraph images {
 rankdir=BT;
 node[style=filled];
 
