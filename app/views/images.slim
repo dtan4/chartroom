@@ -14,7 +14,11 @@ table.table.table-bordered
     - @images.each do |image|
       tr class="#{image.row_class}"
         td = image.id[0..7]
-        td = image.repo_tags.join(", ")
+        td
+          - if image.tagged?
+            strong = image.repo_tags.join(", ")
+          - else
+            = image.repo_tags.join(", ")
         td = sprintf("%.1f MB", image.virtual_size.to_f / 1024 / 1024)
         td = Time.at(image.created_at)
         td = image.parent_id[0..7]
