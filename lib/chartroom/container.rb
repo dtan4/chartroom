@@ -31,8 +31,8 @@ node[style=filled];
       @id ||= @container.info["id"]
     end
 
-    def names
-      @names ||= @container.info["Names"].map { |name| name.sub(/\A\//, "") }
+    def name
+      @name ||= @container.json["Name"].sub(/\A\//, "")
     end
 
     def image
@@ -52,7 +52,7 @@ node[style=filled];
     end
 
     def node_description
-      "container_#{id}[label=\"#{names.join("\n")}\"];"
+      "container_#{id}[label=\"#{name}\"];"
     end
 
     def link_description
@@ -66,7 +66,7 @@ node[style=filled];
     private
 
     def self.find_destination_id(destination_name, containers)
-      destination = containers.select { | container| container.names.include?(destination_name) }.first
+      destination = containers.select { | container| container.name == destination_name }.first
 
       destination ? destination.id : ""
     end

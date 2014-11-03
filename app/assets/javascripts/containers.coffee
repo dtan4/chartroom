@@ -1,5 +1,5 @@
 $ ->
-  diagram_container = document.getElementById("containersDiagramContainer")
+  diagramContainer = document.getElementById("containersDiagramContainer")
   network = null
 
   options = {
@@ -18,4 +18,11 @@ $ ->
   }
 
   $.getJSON "/api/containers", {}, (data) ->
-    network = new vis.Network(diagram_container, data, options)
+    network = new vis.Network(diagramContainer, data, options)
+
+  $("#containersList > tbody td").click ->
+    return if network == null
+
+    containerId = $(this).parent()[0].id
+    console.log containerId
+    network.focusOnNode "container_#{containerId}"
