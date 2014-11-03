@@ -24,5 +24,4 @@ $ ->
     return if network == null
 
     containerId = $(this).parent()[0].id
-    console.log containerId
     network.focusOnNode "container_#{containerId}"

@@ -1,5 +1,5 @@
 $ ->
-  diagram_container = document.getElementById("imagesDiagramContainer")
+  diagramContainer = document.getElementById("imagesDiagramContainer")
   diagram_data = null
   network = null
 
@@ -20,4 +20,10 @@ $ ->
 
   $.getJSON "/api/images", {}, (data) ->
     diagram_data = data
-    network = new vis.Network diagram_container, data, options
+    network = new vis.Network diagramContainer, data, options
+
+  $("#imagesList > tbody td").click ->
+    return if network == null
+
+    imageId = $(this).parent()[0].id
+    network.focusOnNode "image_#{imageId}", { scale: 1 }
