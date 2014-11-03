@@ -1,6 +1,6 @@
 module Chartroom
   class Image
-    def self.generate_tree_diagram(images)
+    def self.generate_diagram(images)
       images_description = []
 
       images.select { |image| image.tagged? }.each do |image|

@@ -51,7 +51,7 @@ module Chartroom
       content_type :json
 
       images = Docker::Image.all(all: "1").map { |image| Chartroom::Image.new(image) }
-      tree_diagram = Chartroom::Image.generate_tree_diagram(images)
+      tree_diagram = Chartroom::Image.generate_diagram(images)
 
       { dot: tree_diagram }.to_json
     end
