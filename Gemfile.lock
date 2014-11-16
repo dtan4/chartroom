@@ -12,11 +12,11 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     diff-lcs (1.2.5)
-    docker-api (1.13.6)
+    docker-api (1.15.0)
       archive-tar-minitar
       excon (>= 0.38.0)
       json
-    excon (0.40.0)
+    excon (0.41.0)
     execjs (2.2.2)
     ffi (1.9.6)
     formatador (0.2.5)
@@ -104,7 +104,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script
-  docker-api
+  docker-api (~> 1.15)
   guard-rspec
   rails-assets-bootstrap
   rails-assets-bootstrap-css

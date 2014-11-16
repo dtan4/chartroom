@@ -18,7 +18,7 @@ gem "rails-assets-bootstrap"
 gem "rails-assets-bootstrap-css"
 gem "rails-assets-vis"
 
-gem "docker-api", require: "docker"
+gem "docker-api", "~> 1.15", require: "docker"
 
 group :development, :test do
   gem "rspec"
