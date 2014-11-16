@@ -26,5 +26,6 @@ end
 
 group :development do
   gem "guard-rspec"
+  gem "rake"
   gem "sinatra-reloader", require: "sinatra/reloader"
 end

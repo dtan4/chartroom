@@ -53,6 +53,7 @@ GEM
     rails-assets-bootstrap-css (3.2.0)
     rails-assets-jquery (2.1.1)
     rails-assets-vis (3.6.3)
+    rake (10.3.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -110,6 +111,7 @@ DEPENDENCIES
   rails-assets-bootstrap-css
   rails-assets-jquery
   rails-assets-vis
+  rake
   rspec
   sass
   sinatra (~> 1.4.5)
