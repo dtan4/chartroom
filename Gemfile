@@ -2,7 +2,7 @@
 source "https://rubygems.org"
 source "https://rails-assets.org"
 
-ruby "2.1.4"
+ruby "2.1.5"
 
 gem "sinatra", "~> 1.4.5", require: "sinatra/base"
 
