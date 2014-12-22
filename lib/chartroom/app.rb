@@ -2,6 +2,7 @@ module Chartroom
   class App < Sinatra::Base
     set :root, File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "app"))
     set :assets, Sprockets::Environment.new(root)
+    enable :logging
 
     configure do
       RailsAssets.load_paths.each do |path|
