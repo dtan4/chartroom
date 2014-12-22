@@ -2,15 +2,19 @@
 
 [![Build Status](https://travis-ci.org/dtan4/chartroom.svg?branch=master)](https://travis-ci.org/dtan4/chartroom)
 
-Look down the structure of Docker images and containers.
+Look down Docker images, containers and their structure.
 
 ## Run as a Docker container
+
+Chartroom Docker image is available in [Docker Hub (dtan4/chartroom)](https://registry.hub.docker.com/u/dtan4/chartroom/).
 
 ```shell
 $ docker run -p 9292:9292 -v /var/run/docker.sock:/var/run/docker.sock dtan4/chartroom
 ```
 
-Please do not forget `-v /var/run/docker.sock:/var/run/docker.sock` option!
+Then you can see dashboard by accessing `http://[DOCKER_HOST]:9292/`.
+
+__NOTE:__ Please DO NOT forget `-v /var/run/docker.sock:/var/run/docker.sock` option!
 
 ## Run on the local machine
 
@@ -18,8 +22,10 @@ Please do not forget `-v /var/run/docker.sock:/var/run/docker.sock` option!
 $ git clone https://github.com/dtan4/chartroom.git
 $ cd chartroom
 $ bundle install
-$ bundle exec rackup
+$ bundle exec rackup -p 9292
 ```
+
+Then you can see dashboard by accessing `http://localhost:9292/`.
 
 ## Screenshot
 
