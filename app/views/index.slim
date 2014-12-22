@@ -1,15 +1,31 @@
-/ .row
-/   .col-md-6
-/     .panel.panel-default
-/       .panel-heading
-/         strong Images
-/       .panel-body
-/         = 2
-/   .col-md-6
-/     .panel.panel-default
-/       .panel-heading
-/         strong Running Containers
-/       .panel-body
-/         = 2
-/         .pull-right
-/           button.btn.btn-primary View Running Containers
+.row
+  .col-md-6
+    h2
+      a href="/images" Images
+
+    table.table.table-bordered.table-striped#imagesList
+      thead
+        tr
+          th ID
+          th RepoTags
+      tbody
+        - @images.each do |image|
+          tr id="#{image.id}"
+            td = image.id[0..11]
+            td
+              strong = image.repo_tags.join(", ")
+  .col-md-6
+    h2
+      a href="/containers" Containers
+
+    table.table.table-bordered.table-striped#containersList
+      thead
+        tr
+          th ID
+          th Name
+      tbody
+        - @containers.each do |container|
+          tr id="#{container.id}"
+            td = container.id[0..11]
+            td
+              strong = container.name

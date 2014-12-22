@@ -40,6 +40,9 @@ module Chartroom
     end
 
     get "/" do
+      @images = tagged_images
+      @containers = containers
+
       slim :index
     end
 
