@@ -25,6 +25,18 @@ module Chartroom
 
     helpers do
       include Sprockets::Helpers
+
+      def containers
+        Docker::Container.all.map { |container| Chartroom::Container.new(container) }
+      end
+
+      def images
+        Docker::Image.all.map { |image| Chartroom::Image.new(image) }
+      end
+
+      def tagged_images
+        images.select { |image| image.tagged? }
+      end
     end
 
     get "/" do
@@ -32,7 +44,7 @@ module Chartroom
     end
 
     get "/images" do
-      @images = Docker::Image.all.map { |image| Chartroom::Image.new(image) }.select { |image| image.tagged? }
+      @images = tagged_images
 
       slim :images
     end
@@ -47,7 +59,7 @@ module Chartroom
     end
 
     get "/containers" do
-      @containers = Docker::Container.all.map { |container| Chartroom::Container.new(container) }
+      @containers = containers
 
       slim :containers
     end
@@ -55,7 +67,6 @@ module Chartroom
     get "/api/containers" do
       content_type :json
 
-      containers = Docker::Container.all.map { |container| Chartroom::Container.new(container) }
       diagram = Chartroom::Container.generate_diagram(containers)
 
       { dot: diagram }.to_json
