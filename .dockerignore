@@ -1,0 +1,11 @@
+docs
+README.md
+LICENSE
+
+.git
+.gitignore
+
+spec
+.rspec
+Guardfile
+.travis.yml
