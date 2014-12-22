@@ -18,9 +18,9 @@ $ ->
     height: "700px"
   }
 
-  $.getJSON "/api/images", {}, (data) ->
-    diagram_data = data
-    network = new vis.Network diagramContainer, data, options
+  unless diagramContainer is null
+    $.getJSON "/api/images", {}, (data) ->
+      network = new vis.Network diagramContainer, data, options
 
   $("#imagesList > tbody td").click ->
     return if network == null
