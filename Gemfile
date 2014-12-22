@@ -1,4 +1,3 @@
-# A sample Gemfile
 source "https://rubygems.org"
 source "https://rails-assets.org"
 
