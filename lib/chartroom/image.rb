@@ -39,6 +39,10 @@ node[style=filled];
       @id ||= @image.info["id"]
     end
 
+    def short_id
+      id[0..11]
+    end
+
     def repo_tags
       @repo_tags ||= @image.info["RepoTags"]
     end
@@ -53,6 +57,10 @@ node[style=filled];
 
     def parent_id
       @parent_id ||= @image.info["ParentId"]
+    end
+
+    def short_parent_id
+      parent_id[0..11]
     end
 
     def tagged?
@@ -81,7 +89,7 @@ node[style=filled];
     end
 
     def node_label
-      tagged? ? repo_tags.join("\n") : id[0..11]
+      tagged? ? repo_tags.join("\n") : short_id
     end
 
     def node_shape

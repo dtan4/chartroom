@@ -31,6 +31,10 @@ node[style=filled];
       @id ||= @container.info["id"]
     end
 
+    def short_id
+      id[0..11]
+    end
+
     def name
       @name ||= @container.json["Name"].sub(/\A\//, "")
     end
@@ -59,7 +63,7 @@ node[style=filled];
       link_description = []
 
       links.each do |link|
-        link_description << "image_#{id[0..11]}"
+        link_description << "image_#{short_id}"
       end
     end
 
