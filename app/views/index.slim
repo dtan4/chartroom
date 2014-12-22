@@ -11,7 +11,7 @@
       tbody
         - @images.each do |image|
           tr id="#{image.id}"
-            td = image.short_id
+            td.col-md-1 = image.short_id
             td
               strong = image.repo_tags.join(", ")
   .col-md-6
@@ -26,6 +26,6 @@
       tbody
         - @containers.each do |container|
           tr id="#{container.id}"
-            td = container.short_id
+            td.col-md-1 = container.short_id
             td
               strong = container.name

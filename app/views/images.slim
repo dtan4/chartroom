@@ -13,7 +13,7 @@ table.table.table-bordered.table-striped#imagesList
   tbody
     - @images.each do |image|
       tr id="#{image.id}"
-        td = image.short_id
+        td.col-md-1 = image.short_id
         td
           strong = image.repo_tags.join(", ")
         td = sprintf("%.1f MB", image.virtual_size.to_f / 1024 / 1024)

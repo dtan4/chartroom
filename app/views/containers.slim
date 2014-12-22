@@ -14,7 +14,7 @@ table.table.table-bordered.table-striped#containersList
   tbody
     - @containers.each do |container|
       tr id="#{container.id}"
-        td = container.short_id
+        td.col-md-1 = container.short_id
         td
           strong = container.name
         td = container.image
