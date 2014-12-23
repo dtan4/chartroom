@@ -3,6 +3,7 @@ module Chartroom
     class << self
       def generate_diagram(containers)
         diagram_description = []
+        public_ports = []
 
         containers.each do |container|
           diagram_description << container.node_description
@@ -12,6 +13,13 @@ module Chartroom
             destination_id = self.find_destination_id(destination_name, containers)
             diagram_description << "container_#{container.id} -> container_#{destination_id};" if destination_id
           end
+
+          container.ports.each do |port|
+            diagram_description << "container_#{container.id} -> port_#{port['PublicPort']} [ label=\"#{port['PublicPort']} -> #{port['PrivatePort']}\"];"
+            public_ports << port['PublicPort']
+          end
+
+          diagram_description.concat public_ports.uniq.map { |port| "port_#{port}[color=lawngreen, label=\"#{port}\", shape=box];" }
         end
 
       <<-DIAGRAM
