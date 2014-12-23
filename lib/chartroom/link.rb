@@ -2,7 +2,9 @@ module Chartroom
   class Link
     def initialize(link)
       @link = link
-      @link_name, @link_alias = *@link.gsub("/", "").split(":")
+      link_name, link_alias = *@link.split(":")
+      @link_name = link_name.gsub("/", "")
+      @link_alias = link_alias.gsub(/\/.+\//, "")
     end
 
     def link_name

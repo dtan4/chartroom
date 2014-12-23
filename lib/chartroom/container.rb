@@ -10,7 +10,7 @@ module Chartroom
           # TODO: separate method
           container.links.each do |link|
             destination_id = self.find_destination_id(link.link_name, containers)
-            diagram_description << "container_#{container.id} -> container_#{destination_id};" if destination_id
+            diagram_description << "container_#{container.id} -> container_#{destination_id} [label=\"#{link.prettify}\"];" if destination_id
           end
 
           diagram_description.concat container.ports_description
