@@ -1,4 +1,18 @@
 .row
+  .text-center
+    .col-md-4
+      strong Docker version
+      span.info-version = @info["Version"]
+    .col-md-4
+      strong Docker API version
+      span.info-version = @info["ApiVersion"]
+    .col-md-4
+      strong Go version
+      span.info-version = @info["GoVersion"]
+
+hr
+
+.row
   .col-md-6
     h2
       a href="/images" Images
