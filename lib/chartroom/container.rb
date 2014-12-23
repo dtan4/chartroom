@@ -64,12 +64,11 @@ node[style=filled];
     end
 
     def ports
-      @port ||= @container.info["Ports"].select { |port| !port["PublicPort"].nil? }
+      @port ||= @container.info["Ports"].select { |port| !port["PublicPort"].nil? }.map { |port| Chartroom::Port.new(port) }
     end
 
     def formatted_ports
-      @formatted_ports ||=
-        ports.map { |port| "#{port['PrivatePort']} -> #{port['PublicPort']} (#{port['Type'].upcase})" }.join(", ")
+      @formatted_ports ||= ports.map { |port| port.prettify }.join(", ")
     end
 
     def status
@@ -85,9 +84,8 @@ node[style=filled];
       port_nodes = []
 
       ports.each do |port|
-        public_port, private_port = port["PublicPort"], port["PrivatePort"]
-        ports_description << "container_#{id} -> port_#{public_port} [label=\"#{public_port} -> #{private_port}\"];"
-        port_nodes << "port_#{public_port}[color=lawngreen, label=\"#{public_port}\", shape=ellipse];"
+        ports_description << port.edge_description(id)
+        port_nodes << port.node_description
       end
 
       ports_description.concat port_nodes.uniq
