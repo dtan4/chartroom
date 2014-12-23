@@ -15,11 +15,11 @@ module Chartroom
           end
 
           container.ports.each do |port|
-            diagram_description << "container_#{container.id} -> port_#{port['PublicPort']} [ label=\"#{port['PublicPort']} -> #{port['PrivatePort']}\"];"
+            diagram_description << "container_#{container.id} -> port_#{port['PublicPort']} [label=\"#{port['PublicPort']} -> #{port['PrivatePort']}\"];"
             public_ports << port['PublicPort']
           end
 
-          diagram_description.concat public_ports.uniq.map { |port| "port_#{port}[color=lawngreen, label=\"#{port}\", shape=box];" }
+          diagram_description.concat public_ports.uniq.map { |port| "port_#{port}[color=lawngreen, label=\"#{port}\", shape=ellipse];" }
         end
 
       <<-DIAGRAM
@@ -83,7 +83,7 @@ node[style=filled];
     end
 
     def node_description
-      "container_#{id}[label=\"#{name}\"];"
+      "container_#{id}[label=\"#{name}\", shape=box];"
     end
 
     def link_description
