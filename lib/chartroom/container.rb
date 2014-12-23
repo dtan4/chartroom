@@ -3,11 +3,11 @@ module Chartroom
     class << self
       def generate_diagram(containers)
         diagram_description = []
-        public_ports = []
 
         containers.each do |container|
           diagram_description << container.node_description
 
+          # TODO: separate method
           container.links.each do |link|
             destination_name = link.split(":")[0][1..-1]
             destination_id = self.find_destination_id(destination_name, containers)
@@ -79,14 +79,6 @@ node[style=filled];
 
     def node_description
       "container_#{id}[label=\"#{name}\", shape=box];"
-    end
-
-    def link_description
-      link_description = []
-
-      links.each do |link|
-        link_description << "image_#{short_id}"
-      end
     end
 
     def ports_description
