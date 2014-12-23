@@ -97,6 +97,7 @@ GEM
     sprockets-helpers (1.1.0)
       sprockets (~> 2.0)
     temple (0.7.3)
+    terminal-notifier-guard (1.6.4)
     thor (0.19.1)
     tilt (1.4.1)
     timers (4.0.1)
@@ -121,3 +122,4 @@ DEPENDENCIES
   slim
   sprockets
   sprockets-helpers
+  terminal-notifier-guard
