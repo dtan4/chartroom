@@ -25,7 +25,7 @@ h2 Containers
             strong = container.name
           td = container.image
           td = container.links.join(", ")
-          td = container.ports.join(", ")
+          td = container.formatted_ports
           td = container.status
           td
             .text-center

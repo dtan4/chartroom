@@ -58,9 +58,12 @@ node[style=filled];
     end
 
     def ports
-      @port ||= @container.info["Ports"]
-        .select { |port| !port["PublicPort"].nil? }
-        .map { |port| "#{port['PrivatePort']} -> #{port['PublicPort']} (#{port['Type'].upcase})" }
+      @port ||= @container.info["Ports"].select { |port| !port["PublicPort"].nil? }
+    end
+
+    def formatted_ports
+      @formatted_ports ||=
+        ports.map { |port| "#{port['PrivatePort']} -> #{port['PublicPort']} (#{port['Type'].upcase})" }.join(", ")
     end
 
     def status
