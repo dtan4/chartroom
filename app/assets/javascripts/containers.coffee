@@ -17,9 +17,12 @@ $ ->
     height: "700px"
   }
 
-  unless diagramContainer is null
+  refreshDiagram = ->
     $.getJSON "/api/containers", {}, (data) ->
       network = new vis.Network(diagramContainer, data, options)
+
+  unless diagramContainer is null
+    refreshDiagram()
 
   $("#containersList > tbody td").click ->
     return if network == null
@@ -33,6 +36,10 @@ $ ->
     $.ajax {
       type: "DELETE",
       url: "/api/containers/#{containerId}",
-      success: (data) -> console.log data ,
+      success: (data) ->
+        console.log data
+        $("##{containerId}").remove()
+        refreshDiagram()
+      ,
       error: (data) -> console.error JSON.parse(data)["message"]
      }
