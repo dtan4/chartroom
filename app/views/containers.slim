@@ -13,8 +13,8 @@ h2 Containers
         th ID
         th Name
         th Image
-        th Command
         th Links
+        th Ports
         th Status
         th
     tbody
@@ -24,9 +24,8 @@ h2 Containers
           td
             strong = container.name
           td = container.image
-          td
-            code = container.command
-          td = container.links.join(", ")
+          td = container.formatted_links
+          td = container.formatted_ports
           td = container.status
           td
             .text-center

@@ -7,11 +7,14 @@ module Chartroom
         containers.each do |container|
           diagram_description << container.node_description
 
+          # TODO: separate method
           container.links.each do |link|
             destination_name = link.split(":")[0][1..-1]
             destination_id = self.find_destination_id(destination_name, containers)
-            diagram_description << "container_#{container.id} -> container_#{destination_id};"
+            diagram_description << "container_#{container.id} -> container_#{destination_id};" if destination_id
           end
+
+          diagram_description.concat container.ports_description
         end
 
       <<-DIAGRAM
@@ -57,20 +60,38 @@ node[style=filled];
       @links ||= (@container.json["HostConfig"]["Links"] || [])
     end
 
+    def formatted_links
+      @formatted_links ||= links.join(", ")
+    end
+
+    def ports
+      @port ||= @container.info["Ports"].select { |port| !port["PublicPort"].nil? }
+    end
+
+    def formatted_ports
+      @formatted_ports ||=
+        ports.map { |port| "#{port['PrivatePort']} -> #{port['PublicPort']} (#{port['Type'].upcase})" }.join(", ")
+    end
+
     def status
       @container.info["Status"]
     end
 
     def node_description
-      "container_#{id}[label=\"#{name}\"];"
+      "container_#{id}[label=\"#{name}\", shape=box];"
     end
 
-    def link_description
-      link_description = []
+    def ports_description
+      ports_description = []
+      port_nodes = []
 
-      links.each do |link|
-        link_description << "image_#{short_id}"
+      ports.each do |port|
+        public_port, private_port = port["PublicPort"], port["PrivatePort"]
+        ports_description << "container_#{id} -> port_#{public_port} [label=\"#{public_port} -> #{private_port}\"];"
+        port_nodes << "port_#{public_port}[color=lawngreen, label=\"#{public_port}\", shape=ellipse];"
       end
+
+      ports_description.concat port_nodes.uniq
     end
 
     private
@@ -78,7 +99,7 @@ node[style=filled];
     def self.find_destination_id(destination_name, containers)
       destination = containers.select { | container| container.name == destination_name }.first
 
-      destination ? destination.id : ""
+      destination ? destination.id : nil
     end
   end
 end
