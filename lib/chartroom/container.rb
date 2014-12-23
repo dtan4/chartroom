@@ -14,12 +14,7 @@ module Chartroom
             diagram_description << "container_#{container.id} -> container_#{destination_id};" if destination_id
           end
 
-          container.ports.each do |port|
-            diagram_description << "container_#{container.id} -> port_#{port['PublicPort']} [label=\"#{port['PublicPort']} -> #{port['PrivatePort']}\"];"
-            public_ports << port['PublicPort']
-          end
-
-          diagram_description.concat public_ports.uniq.map { |port| "port_#{port}[color=lawngreen, label=\"#{port}\", shape=ellipse];" }
+          diagram_description.concat container.ports_description
         end
 
       <<-DIAGRAM
@@ -92,6 +87,19 @@ node[style=filled];
       links.each do |link|
         link_description << "image_#{short_id}"
       end
+    end
+
+    def ports_description
+      ports_description = []
+      port_nodes = []
+
+      ports.each do |port|
+        public_port, private_port = port["PublicPort"], port["PrivatePort"]
+        ports_description << "container_#{id} -> port_#{public_port} [label=\"#{public_port} -> #{private_port}\"];"
+        port_nodes << "port_#{public_port}[color=lawngreen, label=\"#{public_port}\", shape=ellipse];"
+      end
+
+      ports_description.concat port_nodes.uniq
     end
 
     private
