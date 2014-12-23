@@ -68,8 +68,7 @@ node[style=filled];
     end
 
     def formatted_ports
-      @formatted_ports ||=
-        ports.map { |port| "#{port.private_port} -> #{port.public_port} (#{port.type.upcase})" }.join(", ")
+      @formatted_ports ||= ports.map { |port| port.prettify }.join(", ")
     end
 
     def status
@@ -85,8 +84,8 @@ node[style=filled];
       port_nodes = []
 
       ports.each do |port|
-        ports_description << "container_#{id} -> port_#{port.public_port} [label=\"#{port.public_port} -> #{port.private_port}\"];"
-        port_nodes << "port_#{port.public_port}[color=lawngreen, label=\"#{port.public_port}\", shape=ellipse];"
+        ports_description << port.edge_description(id)
+        port_nodes << port.node_description
       end
 
       ports_description.concat port_nodes.uniq

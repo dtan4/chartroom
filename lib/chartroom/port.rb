@@ -13,11 +13,19 @@ module Chartroom
     end
 
     def type
-      @type ||= @port['Type']
+      @type ||= @port["Type"]
     end
 
     def prettify
-      "#{link_name}:#{link_alias}"
+      "#{private_port} -> #{public_port} (#{type.upcase})"
+    end
+
+    def edge_description(id)
+      "container_#{id} -> port_#{public_port} [label=\"#{public_port} -> #{private_port}\"];"
+    end
+
+    def node_description
+      "port_#{public_port}[color=lawngreen, label=\"#{public_port}\", shape=ellipse];"
     end
   end
 end
