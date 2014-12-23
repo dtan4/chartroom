@@ -61,7 +61,11 @@ node[style=filled];
     end
 
     def formatted_links
-      @formatted_links ||= links.join(", ")
+      @formatted_links ||= links.map do |link|
+        link_name, link_alias = *link.gsub("/", "").split(":")
+        link_alias.gsub!(name, "")
+        "#{link_name}:#{link_alias}"
+      end.join(", ")
     end
 
     def ports
