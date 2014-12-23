@@ -11,6 +11,7 @@ table.table.table-bordered.table-striped#containersList
       th Command
       th Links
       th Status
+      th
   tbody
     - @containers.each do |container|
       tr id="#{container.id}"
@@ -22,3 +23,8 @@ table.table.table-bordered.table-striped#containersList
           code = container.command
         td = container.links.join(", ")
         td = container.status
+        td
+          .text-center
+            button.btn.btn-danger
+              span.glyphicon.glyphicon-stop
+              |  Stop
