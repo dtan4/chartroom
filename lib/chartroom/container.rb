@@ -57,6 +57,12 @@ node[style=filled];
       @links ||= (@container.json["HostConfig"]["Links"] || [])
     end
 
+    def ports
+      @port ||= @container.info["Ports"]
+        .select { |port| !port["PublicPort"].nil? }
+        .map { |port| "#{port['PrivatePort']} -> #{port['PublicPort']} (#{port['Type'].upcase})" }
+    end
+
     def status
       @container.info["Status"]
     end

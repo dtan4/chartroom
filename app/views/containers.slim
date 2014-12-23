@@ -14,6 +14,7 @@ h2 Containers
         th Name
         th Image
         th Links
+        th Ports
         th Status
         th
     tbody
@@ -24,6 +25,7 @@ h2 Containers
             strong = container.name
           td = container.image
           td = container.links.join(", ")
+          td = container.ports.join(", ")
           td = container.status
           td
             .text-center
