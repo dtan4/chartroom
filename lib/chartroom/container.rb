@@ -57,6 +57,10 @@ node[style=filled];
       @links ||= (@container.json["HostConfig"]["Links"] || [])
     end
 
+    def formatted_links
+      @formatted_links ||= links.join(", ")
+    end
+
     def ports
       @port ||= @container.info["Ports"].select { |port| !port["PublicPort"].nil? }
     end

@@ -24,7 +24,7 @@ h2 Containers
           td
             strong = container.name
           td = container.image
-          td = container.links.join(", ")
+          td = container.formatted_links
           td = container.formatted_ports
           td = container.status
           td
