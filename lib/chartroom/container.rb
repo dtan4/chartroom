@@ -9,9 +9,8 @@ module Chartroom
 
           # TODO: separate method
           container.links.each do |link|
-            destination_name = link.split(":")[0][1..-1]
-            destination_id = self.find_destination_id(destination_name, containers)
-            diagram_description << "container_#{container.id} -> container_#{destination_id};" if destination_id
+            destination_id = self.find_destination_id(link.link_name, containers)
+            diagram_description << "container_#{container.id} -> container_#{destination_id} [label=\"#{link.prettify}\"];" if destination_id
           end
 
           diagram_description.concat container.ports_description
@@ -57,11 +56,11 @@ node[style=filled];
     end
 
     def links
-      @links ||= (@container.json["HostConfig"]["Links"] || [])
+      @links ||= (@container.json["HostConfig"]["Links"] || []).map { |link| Chartroom::Link.new(link) }
     end
 
     def formatted_links
-      @formatted_links ||= links.join(", ")
+      @formatted_links ||= links.map { |link| link.prettify }.join(", ")
     end
 
     def ports
