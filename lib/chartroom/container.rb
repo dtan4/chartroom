@@ -10,7 +10,10 @@ module Chartroom
           container.links.each do |link|
             destination_name = link.split(":")[0][1..-1]
             destination_id = self.find_destination_id(destination_name, containers)
-            diagram_description << "container_#{container.id} -> container_#{destination_id};"
+
+            unless destination_id.nil?
+              diagram_description << "container_#{container.id} -> container_#{destination_id};"
+            end
           end
         end
 
@@ -91,7 +94,7 @@ node[style=filled];
     def self.find_destination_id(destination_name, containers)
       destination = containers.select { | container| container.name == destination_name }.first
 
-      destination ? destination.id : ""
+      destination ? destination.id : nil
     end
   end
 end
