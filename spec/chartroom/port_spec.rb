@@ -3,11 +3,11 @@ require "spec_helper"
 module Chartroom
   describe Port do
     let(:private_port) { 80 }
-    let(:public_port)  { 80 }
+    let(:public_port)  { 81 }
     let(:type)         { "tcp" }
 
     let(:params) do
-      { "IP" => "0.0.0.0", "PrivatePort" => 80, "PublicPort" => 80, "Type" => "tcp" }
+      { "IP" => "0.0.0.0", "PrivatePort" => private_port, "PublicPort" => public_port, "Type" => type }
     end
 
     let(:port) { described_class.new(params) }
