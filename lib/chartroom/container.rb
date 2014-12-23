@@ -10,10 +10,7 @@ module Chartroom
           container.links.each do |link|
             destination_name = link.split(":")[0][1..-1]
             destination_id = self.find_destination_id(destination_name, containers)
-
-            unless destination_id.nil?
-              diagram_description << "container_#{container.id} -> container_#{destination_id};"
-            end
+            diagram_description << "container_#{container.id} -> container_#{destination_id};" if destination_id
           end
         end
 
