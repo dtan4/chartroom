@@ -1,21 +1,26 @@
 h2 Images
 
-#imagesDiagramContainer
+- if @images.empty?
+  .text-center
+    .well
+      strong No image
+-else
+  #imagesDiagramContainer
 
-table.table.table-bordered.table-striped#imagesList
-  thead
-    tr
-      th ID
-      th RepoTags
-      th Virtual Size
-      th Created at
-      th Parent ID
-  tbody
-    - @images.each do |image|
-      tr id="#{image.id}"
-        td.col-md-1 = image.short_id
-        td
-          strong = image.repo_tags.join(", ")
-        td = sprintf("%.1f MB", image.virtual_size.to_f / 1024 / 1024)
-        td = Time.at(image.created_at).strftime("%Y-%m-%d %H:%M:%S")
-        td = image.short_parent_id
+  table.table.table-bordered.table-striped#imagesList
+    thead
+      tr
+        th ID
+        th RepoTags
+        th Virtual Size
+        th Created at
+        th Parent ID
+    tbody
+      - @images.each do |image|
+        tr id="#{image.id}"
+          td.col-md-1 = image.short_id
+          td
+            strong = image.repo_tags.join(", ")
+          td = sprintf("%.1f MB", image.virtual_size.to_f / 1024 / 1024)
+          td = Time.at(image.created_at).strftime("%Y-%m-%d %H:%M:%S")
+          td = image.short_parent_id
