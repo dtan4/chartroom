@@ -3,29 +3,40 @@
     h2
       a href="/images" Images
 
-    table.table.table-bordered.table-striped#imagesList
-      thead
-        tr
-          th ID
-          th RepoTags
-      tbody
-        - @images.each do |image|
-          tr id="#{image.id}"
-            td.col-md-1 = image.short_id
-            td
-              strong = image.repo_tags.join(", ")
+    - if @images.empty?
+      .text-center
+        .well
+          strong No image
+    - else
+      table.table.table-bordered.table-striped#imagesList
+        thead
+          tr
+            th ID
+            th RepoTags
+        tbody
+          - @images.each do |image|
+            tr id="#{image.id}"
+              td.col-md-1 = image.short_id
+              td
+                strong = image.repo_tags.join(", ")
+
   .col-md-6
     h2
       a href="/containers" Containers
 
-    table.table.table-bordered.table-striped#containersList
-      thead
-        tr
-          th ID
-          th Name
-      tbody
-        - @containers.each do |container|
-          tr id="#{container.id}"
-            td.col-md-1 = container.short_id
-            td
-              strong = container.name
+    - if @containers.empty?
+      .text-center
+        .well
+          strong No running container
+    - else
+      table.table.table-bordered.table-striped#containersList
+        thead
+          tr
+            th ID
+            th Name
+        tbody
+          - @containers.each do |container|
+            tr id="#{container.id}"
+              td.col-md-1 = container.short_id
+              td
+                strong = container.name
