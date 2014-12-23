@@ -20,6 +20,7 @@ gem "rails-assets-vis"
 gem "docker-api", "~> 1.15", require: "docker"
 
 group :development, :test do
+  gem "coveralls", require: false
   gem "rspec"
 end
 
