@@ -45,6 +45,7 @@ module Chartroom
     end
 
     get "/" do
+      @info = Docker.version
       @images = tagged_images
       @containers = containers
 
