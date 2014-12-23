@@ -32,7 +32,11 @@ module Chartroom
       end
 
       def images
-        Docker::Image.all.map { |image| Chartroom::Image.new(image) }
+        Chartroom::Image.all
+      end
+
+      def images_include_intermediate
+        Chartroom::Image.all(true)
       end
 
       def tagged_images
@@ -56,8 +60,7 @@ module Chartroom
     get "/api/images" do
       content_type :json
 
-      images = Docker::Image.all(all: "1").map { |image| Chartroom::Image.new(image) }
-      tree_diagram = Chartroom::Image.generate_diagram(images)
+      tree_diagram = Chartroom::Image.generate_diagram(images_include_intermediate)
 
       { dot: tree_diagram }.to_json
     end

@@ -31,6 +31,10 @@ node[style=filled];
       DIAGRAM
     end
 
+    def self.all(include_intermediate = false)
+      Docker::Image.all(all: include_intermediate).map { |image| self.new(image) }
+    end
+
     def initialize(image)
       @image = image
     end
