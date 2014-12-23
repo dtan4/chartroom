@@ -23,6 +23,10 @@ node[style=filled];
       DIAGRAM
     end
 
+    def self.all
+      Docker::Container.all.map { |container| self.new(container) }
+    end
+
     def initialize(container)
       @container = container
     end

@@ -28,7 +28,7 @@ module Chartroom
       include Sprockets::Helpers
 
       def containers
-        Docker::Container.all.map { |container| Chartroom::Container.new(container) }
+        Chartroom::Container.all
       end
 
       def images
