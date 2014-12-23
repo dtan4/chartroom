@@ -26,3 +26,13 @@ $ ->
 
     containerId = $(this).parent()[0].id
     network.focusOnNode "container_#{containerId}"
+
+  $(".text-center > button").click ->
+    containerId = $(this).parent().parent().parent().attr "id"
+
+    $.ajax {
+      type: "DELETE",
+      url: "/api/containers/#{containerId}",
+      success: (data) -> console.log data ,
+      error: (data) -> console.error JSON.parse(data)["message"]
+     }

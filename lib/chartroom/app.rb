@@ -75,5 +75,21 @@ module Chartroom
 
       { dot: diagram }.to_json
     end
+
+    delete "/api/containers/:id" do
+      content_type :json
+
+      begin
+        container = Docker::Container.get(params[:id])
+        container.stop
+
+        { error: false }.to_json
+
+      rescue Docker::Error::NotFoundError => e
+        status 404
+
+        { error: true, message: e.message }.to_json
+      end
+    end
   end
 end
