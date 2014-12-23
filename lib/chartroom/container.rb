@@ -1,17 +1,18 @@
 module Chartroom
   class Container
-    def self.generate_diagram(containers)
-      diagram_description = []
+    class << self
+      def generate_diagram(containers)
+        diagram_description = []
 
-      containers.each do |container|
-        diagram_description << container.node_description
+        containers.each do |container|
+          diagram_description << container.node_description
 
-        container.links.each do |link|
-          destination_name = link.split(":")[0][1..-1]
-          destination_id = self.find_destination_id(destination_name, containers)
-          diagram_description << "container_#{container.id} -> container_#{destination_id};"
+          container.links.each do |link|
+            destination_name = link.split(":")[0][1..-1]
+            destination_id = self.find_destination_id(destination_name, containers)
+            diagram_description << "container_#{container.id} -> container_#{destination_id};"
+          end
         end
-      end
 
       <<-DIAGRAM
 strict digraph containers {
@@ -21,6 +22,11 @@ node[style=filled];
 #{diagram_description.join("\n")}
 }
       DIAGRAM
+      end
+
+      def all
+        Docker::Container.all.map { |container| self.new(container) }
+      end
     end
 
     def initialize(container)

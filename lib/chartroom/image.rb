@@ -1,25 +1,26 @@
 module Chartroom
   class Image
-    def self.generate_diagram(images)
-      images_description = []
+    class << self
+      def generate_diagram(images)
+        images_description = []
 
-      images.select { |image| image.tagged? }.each do |image|
-        current_image = image
-        parent_images = ["image_#{current_image.id}"]
+        images.select { |image| image.tagged? }.each do |image|
+          current_image = image
+          parent_images = ["image_#{current_image.id}"]
 
-        loop do
-          images_description << current_image.node_description
+          loop do
+            images_description << current_image.node_description
 
-          break if current_image.parent_id == ""
-          next_image = images.select { |_image| _image.id == current_image.parent_id }.first
-          parent_images << "image_#{next_image.id}"
-          break if next_image.tagged?
+            break if current_image.parent_id == ""
+            next_image = images.select { |_image| _image.id == current_image.parent_id }.first
+            parent_images << "image_#{next_image.id}"
+            break if next_image.tagged?
 
-          current_image = next_image
+            current_image = next_image
+          end
+
+          images_description << "#{parent_images.join(" -> ")};"
         end
-
-        images_description << "#{parent_images.join(" -> ")};"
-      end
 
       <<-DIAGRAM
 strict digraph images {
@@ -29,6 +30,11 @@ node[style=filled];
 #{images_description.join("\n")}
 }
       DIAGRAM
+      end
+
+      def all(include_intermediate = false)
+        Docker::Image.all(all: include_intermediate).map { |image| self.new(image) }
+      end
     end
 
     def initialize(image)
