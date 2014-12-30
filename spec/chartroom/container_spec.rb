@@ -19,7 +19,7 @@ module Chartroom
       let(:info) { { "id" => id } }
       let(:id)   { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
 
-      it "should return id parameter" do
+      it "should return shortened id" do
         expect(container.short_id).to eq id[0..11]
       end
     end
@@ -58,8 +58,9 @@ module Chartroom
         let(:links) { ["/hoge:/fuga/hoge"] }
 
         it "should return links" do
-          expect(container.links).to be_a Array
-          expect(container.links[0]).to be_a Chartroom::Link
+          result = container.links
+          expect(result).to be_a Array
+          expect(result[0]).to be_a Chartroom::Link
         end
       end
 
@@ -89,6 +90,69 @@ module Chartroom
         it "should return empty Array" do
           expect(container.formatted_links).to eq ""
         end
+      end
+    end
+
+    describe "#ports" do
+      let(:info) { { "Ports" => ports } }
+      let(:ports) do
+        [{ "IP" => "0.0.0.0", "PrivatePort" => 80, "PublicPort" => 80, "Type"  => "tcp" }, { "PrivatePort" => 443, "Type" => "tcp" }]
+      end
+
+      it "should return ports" do
+        result = container.ports
+        expect(result).to be_a Array
+        expect(result.length).to eq 1
+        expect(result[0]).to be_a Chartroom::Port
+      end
+    end
+
+    describe "#formatted_ports" do
+      let(:info)  { { "Ports" => ports } }
+      let(:ports) do
+        [{ "IP" => "0.0.0.0", "PrivatePort" => 80, "PublicPort" => 80, "Type"  => "tcp" }, { "PrivatePort" => 443, "Type" => "tcp" }]
+      end
+
+      it "should return stringified ports" do
+        expect(container.formatted_ports).to eq "80 -> 80 (TCP)"
+      end
+    end
+
+    describe "#status" do
+      let(:info)   { { "Status" => status } }
+      let(:status) { "Up 4 minutes" }
+
+      it "should return status parameter" do
+        expect(container.status).to eq status
+      end
+    end
+
+    describe "#node_description" do
+      let(:info) { { "id" => id } }
+      let(:json) { { "Name" => name } }
+      let(:id)   { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
+      let(:name) { "/name" }
+
+      it "should return node description" do
+        expect(container.node_description).to eq "container_12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216[label=\"name\", shape=box];"
+      end
+    end
+
+    describe "ports_description" do
+      let(:info) { { "id" => id, "Ports" => ports } }
+      let(:id)   { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
+      let(:ports) do
+        [{ "IP" => "0.0.0.0", "PrivatePort" => 80, "PublicPort" => 80, "Type"  => "tcp" }, { "PrivatePort" => 443, "Type" => "tcp" }]
+      end
+
+      it "should call port#edge_description" do
+        expect_any_instance_of(Chartroom::Port).to receive(:edge_description).once
+        container.ports_description
+      end
+
+      it "should call port#node_description" do
+        expect_any_instance_of(Chartroom::Port).to receive(:node_description).once
+        container.ports_description
       end
     end
   end
