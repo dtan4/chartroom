@@ -40,10 +40,11 @@ image_3c -> image_2b;
       end
     end
 
+    let(:image) { described_class.new(double(info: info)) }
+
     describe "#id" do
-      let(:image) { described_class.new(double(info: info)) }
-      let(:info)  { { "id" => id } }
-      let(:id)    { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
+      let(:info) { { "id" => id } }
+      let(:id)   { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
 
       it "should return id parameter" do
         expect(image.id).to eq id
@@ -51,9 +52,8 @@ image_3c -> image_2b;
     end
 
     describe "#short_id" do
-      let(:image) { described_class.new(double(info: info)) }
-      let(:info)  { { "id" => id } }
-      let(:id)    { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
+      let(:info) { { "id" => id } }
+      let(:id)   { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
 
       it "should return shortened id" do
         expect(image.short_id).to eq id[0..11]
@@ -61,7 +61,6 @@ image_3c -> image_2b;
     end
 
     describe "#repo_tags" do
-      let(:image)     { described_class.new(double(info: info)) }
       let(:info)      { { "RepoTags" => repo_tags } }
       let(:repo_tags) { ["hoge/fuga:latest"] }
 
@@ -71,7 +70,6 @@ image_3c -> image_2b;
     end
 
     describe "#virtual_size" do
-      let(:image)        { described_class.new(double(info: info)) }
       let(:info)         { { "VirtualSize" => virtual_size } }
       let(:virtual_size) { 12345 }
 
@@ -81,7 +79,6 @@ image_3c -> image_2b;
     end
 
     describe "#created_at" do
-      let(:image)      { described_class.new(double(info: info)) }
       let(:info)       { { "Created" => created_at } }
       let(:created_at) { 14193560445 }
 
@@ -91,7 +88,6 @@ image_3c -> image_2b;
     end
 
     describe "#parent_id" do
-      let(:image)     { described_class.new(double(info: info)) }
       let(:info)      { { "ParentId" => parent_id } }
       let(:parent_id) { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
 
@@ -101,7 +97,6 @@ image_3c -> image_2b;
     end
 
     describe "#short_parent_id" do
-      let(:image)     { described_class.new(double(info: info)) }
       let(:info)      { { "ParentId" => parent_id } }
       let(:parent_id) { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
 
@@ -111,8 +106,6 @@ image_3c -> image_2b;
     end
 
     describe "#tagged?" do
-      let(:image) { described_class.new(double(info: info)) }
-
       context "when image is tagged" do
         let(:info) { { "RepoTags" => ["hoge/fuga:latest"] } }
 
@@ -131,8 +124,6 @@ image_3c -> image_2b;
     end
 
     describe "#node_description" do
-      let(:image) { described_class.new(double(info: info)) }
-
       context "when image is tagged" do
         let(:info) do
           {"id" => "3c", "ParentId" => "2b", "RepoTags" => ["dtan4/fuga:latest"]}
