@@ -6,23 +6,18 @@ module Chartroom
       let(:image_1) do
         double(
           node_description: "image_1a[color=white, label=\"1a\", shape=ellipse];",
-          tagged?: false, id: "1a", parent_id: "")
+          tagged?: false, id: "1a", parent_id: ""
+        )
       end
 
       let(:image_2) do
         double(
           node_description: "image_2b[color=green, label=\"dtan4/hoge:latest\", shape=box];",
-          tagged?: true, id: "2b", parent_id: "1a")
-      end
-
-      let(:image_3) do
-        double(
-          node_description: "image_3c[color=green, label=\"dtan4/fuga:latest\", shape=box];",
-          tagged?: true, id: "3c", parent_id: "2b"
+          tagged?: true, id: "2b", parent_id: "1a"
         )
       end
 
-      let(:images)  { [image_1, image_2, image_3] }
+      let(:images)  { [image_1, image_2] }
 
       it "should generate tree diagram in dot language" do
         expect(described_class.generate_diagram(images)).to eq <<-EXPECT
@@ -33,8 +28,6 @@ node[style=filled];
 image_2b[color=green, label="dtan4/hoge:latest", shape=box];
 image_1a[color=white, label="1a", shape=ellipse];
 image_2b -> image_1a;
-image_3c[color=green, label="dtan4/fuga:latest", shape=box];
-image_3c -> image_2b;
 }
         EXPECT
       end
