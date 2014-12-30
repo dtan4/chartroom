@@ -53,6 +53,7 @@ GEM
     rails-assets-bootstrap (3.3.1)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-bootstrap-css (3.2.0)
+    rails-assets-d3 (3.5.2)
     rails-assets-jquery (2.1.1)
     rails-assets-vis (3.7.2)
     rake (10.4.2)
@@ -111,6 +112,7 @@ DEPENDENCIES
   guard-rspec
   rails-assets-bootstrap
   rails-assets-bootstrap-css
+  rails-assets-d3
   rails-assets-jquery
   rails-assets-vis
   rake

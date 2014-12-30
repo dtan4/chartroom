@@ -12,6 +12,7 @@ gem "slim"
 gem "sprockets"
 gem "sprockets-helpers"
 
+gem "rails-assets-d3"
 gem "rails-assets-jquery"
 gem "rails-assets-bootstrap"
 gem "rails-assets-bootstrap-css"
