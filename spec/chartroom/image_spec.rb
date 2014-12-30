@@ -2,7 +2,7 @@ require "spec_helper"
 
 module Chartroom
   describe Image do
-    describe "#generate_diagram" do
+    describe ".generate_diagram" do
       let(:image_1) do
         double(
           node_description: "image_1a[color=white, label=\"1a\", shape=ellipse];",
