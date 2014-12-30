@@ -73,22 +73,11 @@ node[style=filled];
       (repo_tags.size > 1) || (repo_tags.first != "<none>:<none>")
     end
 
-    def diagram_description
-      <<-DESC
-#{node_description}
-#{link_description}
-      DESC
-    end
-
     def node_description
       "image_#{id}[color=#{node_color}, label=\"#{node_label}\", shape=#{node_shape}];"
     end
 
     private
-
-    def link_description
-      parent_id == "" ? "" : "image_#{id} -> image_#{parent_id};"
-    end
 
     def node_color
       tagged? ? "lawngreen" : "lightgray"
