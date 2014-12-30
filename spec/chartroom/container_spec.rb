@@ -6,6 +6,40 @@ module Chartroom
     let(:info)      { {} }
     let(:json)      { {} }
 
+    describe ".genrate_diagram" do
+      let(:container_1) do
+        double(
+          node_description: "container_1a[label=\"1a\", shape=box];",
+          ports_description: ["80 -> 80 (TCP);"],
+          id: "1a", name: "1a", links: []
+        )
+      end
+
+      let(:container_2) do
+        double(
+          node_description: "container_2b[label=\"2b\", shape=box];",
+          ports_description: [],
+          id: "2b", name: "2b", links: [Chartroom::Link.new("/1a:/2b/1a")]
+        )
+      end
+
+      let(:containers) { [container_1, container_2] }
+
+      it "should return diagram in dot language" do
+        expect(described_class.generate_diagram(containers)).to eq <<-EXPECT
+strict digraph containers {
+rankdir=BT;
+node[style=filled];
+
+container_1a[label=\"1a\", shape=box];
+80 -> 80 (TCP);
+container_2b[label=\"2b\", shape=box];
+container_2b -> container_1a [label="1a:1a"];
+}
+        EXPECT
+      end
+    end
+
     describe "#id" do
       let(:info) { { "id" => id } }
       let(:id)   { "12a324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216" }
