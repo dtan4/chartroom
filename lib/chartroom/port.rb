@@ -21,7 +21,7 @@ module Chartroom
     end
 
     def edge_description(id)
-      "container_#{id} -> port_#{public_port} [label=\"#{public_port} -> #{private_port}\"];"
+      "container_#{id} -> port_#{public_port} [label=\"#{private_port} -> #{public_port}\"];"
     end
 
     def node_description

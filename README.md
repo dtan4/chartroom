@@ -1,6 +1,7 @@
 # Chartroom
 
 [![Build Status](https://travis-ci.org/dtan4/chartroom.svg?branch=master)](https://travis-ci.org/dtan4/chartroom)
+[![Coverage Status](https://img.shields.io/coveralls/dtan4/chartroom.svg)](https://coveralls.io/r/dtan4/chartroom?branch=add-tests)
 
 Look down Docker images, containers and their structure.
 
