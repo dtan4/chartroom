@@ -40,7 +40,7 @@ image_3c -> image_2b;
       end
     end
 
-    describe "#diagram_description" do
+    describe "#node_description" do
       let(:image) { described_class.new(double(info: info)) }
 
       context "when container is tagged" do
@@ -49,9 +49,8 @@ image_3c -> image_2b;
         end
 
         it "should return diagram description" do
-          expect(image.diagram_description).to eq <<-EXPECT
+          expect(image.node_description).to eq <<-EXPECT.strip
 image_3c[color=lawngreen, label="dtan4/fuga:latest", shape=box];
-image_3c -> image_2b;
         EXPECT
         end
       end
@@ -62,22 +61,8 @@ image_3c -> image_2b;
         end
 
         it "should return diagram description" do
-          expect(image.diagram_description).to eq <<-EXPECT
+          expect(image.node_description).to eq <<-EXPECT.strip
 image_3c[color=lightgray, label="3c", shape=ellipse];
-image_3c -> image_2b;
-        EXPECT
-        end
-      end
-
-      context "when container has no parent" do
-        let(:info) do
-          {"id" => "3c", "ParentId" => "", "RepoTags" => ["<none>:<none>"]}
-        end
-
-        it "should return diagram description" do
-          expect(image.diagram_description).to eq <<-EXPECT
-image_3c[color=lightgray, label="3c", shape=ellipse];
-
         EXPECT
         end
       end
