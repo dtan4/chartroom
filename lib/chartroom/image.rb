@@ -17,7 +17,7 @@ module Chartroom
 
         root_images.inject([]) do |tree, image|
           tree << walk_tree(image, by_parent)
-        end
+        end.map { |image| image.to_hash }
       end
 
       def all(include_intermediate = false)
@@ -31,7 +31,7 @@ module Chartroom
           image.children << walk_tree(child, by_parent) if by_parent[child.id] || child.tagged?
         end if by_parent[image.id]
 
-        image.to_hash
+        image
       end
     end
 
@@ -80,7 +80,7 @@ module Chartroom
     end
 
     def to_hash
-      { id: id, name: name, tagged?: tagged?, children: children }
+      { id: id, name: name, tagged?: tagged?, children: children.map { |child| child.to_hash } }
     end
 
     private
