@@ -27,8 +27,8 @@ module Chartroom
       private
 
       def walk_tree(image, by_parent)
-        by_parent[image.id].each do |children|
-          image.children << walk_tree(children, by_parent)
+        by_parent[image.id].each do |child|
+          image.children << walk_tree(child, by_parent)
         end if by_parent[image.id]
 
         image.to_hash
