@@ -1,7 +1,10 @@
 module Chartroom
   class Image
     class << self
-      # TODO: eliminate untagged image branch
+      def all(include_intermediate = false)
+        Docker::Image.all(all: include_intermediate).map { |image| self.new(image) }
+      end
+
       def generate_diagram(images)
         root_images = []
         by_parent = {}
@@ -18,10 +21,6 @@ module Chartroom
         root_images.inject([]) do |tree, image|
           tree << walk_tree(image, by_parent)
         end.map { |image| image.to_hash }
-      end
-
-      def all(include_intermediate = false)
-        Docker::Image.all(all: include_intermediate).map { |image| self.new(image) }
       end
 
       private
