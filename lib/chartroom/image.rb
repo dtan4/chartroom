@@ -70,7 +70,7 @@ node[style=filled];
     end
 
     def tagged?
-      (repo_tags.size > 1) || (repo_tags.first != "<none>:<none>")
+      (repo_tags.size >= 1) && (repo_tags.first != "<none>:<none>")
     end
 
     def node_description
