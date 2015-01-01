@@ -65,12 +65,6 @@ module Chartroom
                   },
                 ],
               },
-              {
-                id: "4da324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
-                tagged?: false,
-                name: "4da324d4afc1",
-                children: [],
-              },
             ],
           },
         ])
