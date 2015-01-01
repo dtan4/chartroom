@@ -68,8 +68,7 @@ module Chartroom
       content_type :json
 
       tree_diagram = Chartroom::Image.generate_diagram(images_include_intermediate)
-
-      { dot: tree_diagram }.to_json
+      tree_diagram.to_json
     end
 
     get "/api/containers" do
