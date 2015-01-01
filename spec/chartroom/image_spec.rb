@@ -4,41 +4,76 @@ module Chartroom
   describe Image do
     describe ".generate_diagram" do
       let(:image_1) do
-        double(
-          node_description: "image_1a[color=white, label=\"1a\", shape=ellipse];",
-          tagged?: false, id: "1a", parent_id: ""
-        )
+        described_class.new(double(
+          info: {
+            "id" => "1aa324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "ParentId" => "",
+            "RepoTags" => [],
+          }
+        ))
       end
 
       let(:image_2) do
-        double(
-          node_description: "image_2b[color=green, label=\"dtan4/hoge:latest\", shape=box];",
-          tagged?: true, id: "2b", parent_id: "1a"
-        )
+        described_class.new(double(
+          info: {
+            "id" => "2ba324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "ParentId" => "1aa324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "RepoTags" => ["dtan4/hoge:latest"],
+          }
+        ))
       end
 
       let(:image_3) do
-        double(
-          node_description: "image_3c[color=green, label=\"dtan4/fuga:latest\", shape=box];",
-          tagged?: true, id: "3c", parent_id: "2b"
-        )
+        described_class.new(double(
+          info: {
+            "id" => "3ca324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "ParentId" => "2ba324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "RepoTags" => ["dtan4/fuga:latest"],
+          }
+        ))
       end
 
-      let(:images)  { [image_1, image_2, image_3] }
+      let(:image_4) do
+        described_class.new(double(
+          info: {
+            "id" => "4da324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "ParentId" => "1aa324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            "RepoTags" => ["<none>:<none>"],
+          }
+        ))
+      end
 
-      it "should generate tree diagram in dot language" do
-        expect(described_class.generate_diagram(images)).to eq <<-EXPECT
-strict digraph images {
-rankdir=BT;
-node[style=filled];
+      let(:images)  { [image_1, image_2, image_3, image_4] }
 
-image_2b[color=green, label="dtan4/hoge:latest", shape=box];
-image_1a[color=white, label="1a", shape=ellipse];
-image_2b -> image_1a;
-image_3c[color=green, label=\"dtan4/fuga:latest\", shape=box];
-image_3c -> image_2b;
-}
-        EXPECT
+      it "should generate tree diagram Hash" do
+        expect(described_class.generate_diagram(images)).to eql([
+          {
+            id: "1aa324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+            tagged?: false,
+            name: "1aa324d4afc1",
+            children: [
+              {
+                id: "2ba324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+                tagged?: true,
+                name: "dtan4/hoge:latest",
+                children: [
+                  {
+                    id: "3ca324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+                    tagged?: true,
+                    name: "dtan4/fuga:latest",
+                    children: [],
+                  },
+                ],
+              },
+              {
+                id: "4da324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
+                tagged?: false,
+                name: "4da324d4afc1",
+                children: [],
+              },
+            ],
+          },
+        ])
       end
     end
 

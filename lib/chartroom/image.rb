@@ -1,39 +1,37 @@
 module Chartroom
   class Image
     class << self
+      # TODO: eliminate untagged image branch
       def generate_diagram(images)
-        images_description = []
+        root_images = []
+        by_parent = {}
 
-        images.select { |image| image.tagged? }.each do |image|
-          current_image = image
-          parent_images = ["image_#{current_image.id}"]
-
-          loop do
-            images_description << current_image.node_description
-
-            break if current_image.parent_id == ""
-            next_image = images.select { |_image| _image.id == current_image.parent_id }.first
-            parent_images << "image_#{next_image.id}"
-            break if next_image.tagged?
-
-            current_image = next_image
+        images.each do |image|
+          if image.parent_id == ""
+            root_images << image
+          else
+            by_parent[image.parent_id] ||= []
+            by_parent[image.parent_id] << image
           end
-
-          images_description << "#{parent_images.join(" -> ")};"
         end
 
-      <<-DIAGRAM
-strict digraph images {
-rankdir=BT;
-node[style=filled];
-
-#{images_description.join("\n")}
-}
-      DIAGRAM
+        root_images.inject([]) do |tree, image|
+          tree << walk_tree(image, by_parent)
+        end
       end
 
       def all(include_intermediate = false)
         Docker::Image.all(all: include_intermediate).map { |image| self.new(image) }
+      end
+
+      private
+
+      def walk_tree(image, by_parent)
+        by_parent[image.id].each do |children|
+          image.children << walk_tree(children, by_parent)
+        end if by_parent[image.id]
+
+        image.to_hash
       end
     end
 
@@ -77,7 +75,19 @@ node[style=filled];
       "image_#{id}[color=#{node_color}, label=\"#{node_label}\", shape=#{node_shape}];"
     end
 
+    def children
+      @children ||= []
+    end
+
+    def to_hash
+      { id: id, name: name, tagged?: tagged?, children: children }
+    end
+
     private
+
+    def name
+      tagged? ? repo_tags.join(", ") : short_id
+    end
 
     def node_color
       tagged? ? "lawngreen" : "lightgray"
