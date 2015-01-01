@@ -71,10 +71,6 @@ module Chartroom
       (repo_tags.size >= 1) && (repo_tags.first != "<none>:<none>")
     end
 
-    def node_description
-      "image_#{id}[color=#{node_color}, label=\"#{node_label}\", shape=#{node_shape}];"
-    end
-
     def children
       @children ||= []
     end
@@ -87,18 +83,6 @@ module Chartroom
 
     def name
       tagged? ? repo_tags.join(", ") : short_id
-    end
-
-    def node_color
-      tagged? ? "lawngreen" : "lightgray"
-    end
-
-    def node_label
-      tagged? ? repo_tags.join("\n") : short_id
-    end
-
-    def node_shape
-      tagged? ? "box" : "ellipse"
     end
   end
 end

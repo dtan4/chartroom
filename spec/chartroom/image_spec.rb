@@ -153,31 +153,5 @@ module Chartroom
         end
       end
     end
-
-    describe "#node_description" do
-      context "when image is tagged" do
-        let(:info) do
-          {"id" => "3c", "ParentId" => "2b", "RepoTags" => ["dtan4/fuga:latest"]}
-        end
-
-        it "should return node description" do
-          expect(image.node_description).to eq <<-EXPECT.strip
-image_3c[color=lawngreen, label="dtan4/fuga:latest", shape=box];
-        EXPECT
-        end
-      end
-
-      context "when image is untagged" do
-        let(:info) do
-          {"id" => "3c", "ParentId" => "2b", "RepoTags" => ["<none>:<none>"]}
-        end
-
-        it "should return node description" do
-          expect(image.node_description).to eq <<-EXPECT.strip
-image_3c[color=lightgray, label="3c", shape=ellipse];
-        EXPECT
-        end
-      end
-    end
   end
 end
