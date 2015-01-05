@@ -53,12 +53,14 @@ module Chartroom
     end
 
     get "/images" do
+      @active = "images"
       @images = tagged_images
 
       slim :images
     end
 
     get "/containers" do
+      @active = "containers"
       @containers = containers
 
       slim :containers

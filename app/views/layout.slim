@@ -17,9 +17,9 @@ html
           a.navbar-brand href="/" ChartRoom
         .collapse.navbar-collapse#bs-example-navbar-collapse-1
           ul.nav.navbar-nav
-            li
+            li class="#{@active == 'images' ? 'active' : ''}"
               a href="/images" Images
-            li
+            li class="#{@active == 'containers' ? 'active' : ''}"
               a href="/containers" Containers
 
     .container
