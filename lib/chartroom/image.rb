@@ -75,7 +75,7 @@ module Chartroom
     end
 
     def to_hash
-      { id: id, name: name, tagged?: tagged?, children: children.map { |child| child.to_hash } }
+      { id: id, name: name, tagged: tagged?, children: children.map { |child| child.to_hash } }
     end
 
     private

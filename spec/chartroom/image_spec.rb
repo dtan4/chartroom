@@ -49,17 +49,17 @@ module Chartroom
         expect(described_class.generate_diagram(images)).to eql([
           {
             id: "1aa324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
-            tagged?: false,
+            tagged: false,
             name: "1aa324d4afc1",
             children: [
               {
                 id: "2ba324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
-                tagged?: true,
+                tagged: true,
                 name: "dtan4/hoge:latest",
                 children: [
                   {
                     id: "3ca324d4afc11e971cb86467681c0c94ff5bc0e946055ff92526bebee9477216",
-                    tagged?: true,
+                    tagged: true,
                     name: "dtan4/fuga:latest",
                     children: [],
                   },
