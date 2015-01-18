@@ -12,7 +12,7 @@ Chartroom Docker image is available at [quay.io/dtan4/chartroom](https://quay.io
 [![Docker Repository on Quay.io](https://quay.io/repository/dtan4/chartroom/status "Docker Repository on Quay.io")](https://quay.io/repository/dtan4/chartroom)
 
 ```shell
-$ docker run -p 9292:9292 -v /var/run/docker.sock:/var/run/docker.sock dtan4/chartroom
+$ docker run -p 9292:9292 -v /var/run/docker.sock:/var/run/docker.sock quay.io/dtan4/chartroom
 ```
 
 Then you can see dashboard by accessing `http://[DOCKER_HOST]:9292/`.
