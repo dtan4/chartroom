@@ -7,7 +7,9 @@ Look down Docker images, containers and their structure.
 
 ## Run as a Docker container
 
-Chartroom Docker image is available in [Docker Hub (dtan4/chartroom)](https://registry.hub.docker.com/u/dtan4/chartroom/).
+Chartroom Docker image is available at [quay.io/dtan4/chartroom](https://quay.io/repository/dtan4/chartroom).
+
+[![Docker Repository on Quay.io](https://quay.io/repository/dtan4/chartroom/status "Docker Repository on Quay.io")](https://quay.io/repository/dtan4/chartroom)
 
 ```shell
 $ docker run -p 9292:9292 -v /var/run/docker.sock:/var/run/docker.sock dtan4/chartroom
