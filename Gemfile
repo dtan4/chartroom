@@ -4,6 +4,7 @@ source "https://rails-assets.org"
 ruby "2.2.0"
 
 gem "sinatra", "~> 1.4.5", require: "sinatra/base"
+gem "sinatra-contrib"
 
 gem "coffee-script"
 gem "sass"
@@ -27,6 +28,5 @@ end
 group :development do
   gem "guard-rspec"
   gem "rake"
-  gem "sinatra-reloader", require: "sinatra/reloader"
   gem "terminal-notifier-guard"
 end
